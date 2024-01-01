@@ -1,38 +1,17 @@
 # Claude-2 Multi-User Bot
 
-**Claude-2 Multi-User Bot** is a Telegram bot that utilizes the Claude-2 language model to provide natural language responses to user prompts. The bot is designed to support multiple users, each with their own conversation history and context.
+采用 SQL Lite 与 python-telegram-bot 设计的 Telegram Claude 问答机器人
 
-## Features
+## Maintenance
 
-- **Multi-User Support**: The bot allows multiple users to interact with it separately, maintaining individual conversation histories and contexts.
-
-- **Claude-2 Language Model**: The bot uses the powerful Claude-2 language model to generate natural and contextually relevant responses to user prompts.
-
-- **File Processing**: Users can upload text files (.txt or .md) privately to have the bot process and respond to the content.
-
-- **Super Admin Controls**: Super admin users have additional commands to manage users, such as listing all users, searching for a user, adding a new user, and deleting users.
-
-## Requirements
-
-- Python 3.8 or higher
-- Telegram API token (for the Telegram bot)
-- Claude-2 API token (for the language model)
-- SQLite database (for user data storage)
-
-## Setup
-
-1. Clone the repository from GitHub.
-
-2. Install the required Python packages.
-
-3. Create a `config.py` file and provide the necessary configuration variables:
-   - `BOT_TOKEN`: Your Telegram bot token.
-   - `ANTHROPIC_TOKEN`: Your Claude-2 API token.
-   - `SUPER_ADMIN_IDS`: List of Telegram user IDs for super admin users.
-
-4. Create the SQLite database file (`user_data.db`) to store user data. Run `database.py` to create the necessary table.
-
-5. Run `bot.py` to start the bot.
+```shell
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+deactivate
+npm install pm2 -g
+pm2 start bot.py --interpreter venv/bin/python3.11
+```
 
 ## Usage
 
@@ -67,7 +46,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Credits
 
-- [Claude-2](https://docs.anthropic.com/claude/docs) is a language model developed by Anthropic Technology Ltd. 
+- [Claude-2.1](https://docs.anthropic.com/claude/docs) is a language model developed by Anthropic Technology Ltd. 
 
 ## Contact
 

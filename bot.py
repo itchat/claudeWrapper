@@ -1,7 +1,7 @@
 import logging
 import os
 
-import anthropic
+from anthropic import AsyncAnthropic
 from telegram import Document
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 class Bot:
     def __init__(self, token):
-        self.client = anthropic.Client(ANTHROPIC_TOKEN)
+        self.client = AsyncAnthropic(api_key=ANTHROPIC_TOKEN)
         self.token = token
         self.bot = Application.builder().token(token).build()
         self.user_manager = UserManager()
@@ -52,16 +52,16 @@ _.~"(_.~"(_.~"(_.~"(_.~"(
 
         logger.addHandler(ch)
 
-    def claude_response(self, user_prompt, user_id):
+    async def claude_response(self, user_prompt, user_id):
         context = self.user_manager.get_context(user_id)
-        context += f"{anthropic.HUMAN_PROMPT}{user_prompt}{anthropic.AI_PROMPT}"
+        context += f"{AsyncAnthropic.HUMAN_PROMPT}{user_prompt}{AsyncAnthropic.AI_PROMPT}"
         self.user_manager.update_context(user_id, context)
 
         try:
-            res = self.client.completion(
+            res = await self.client.completions.create(
                 prompt=context,
-                model="claude-2.0",
-                max_tokens_to_sample=100000
+                model="claude-2.1",
+                max_tokens_to_sample=200000
             )
             return res
         except Exception as e:
@@ -123,7 +123,7 @@ _.~"(_.~"(_.~"(_.~"(_.~"(
                 # 处理文件内容
                 with open(file_path, 'r', encoding='utf-8') as f:
                     file_content = f.read()
-                
+
                 if not file_content:
                     await update.message.reply_text("Empty file. Please upload a non-empty text file.")
                     return
@@ -149,9 +149,9 @@ _.~"(_.~"(_.~"(_.~"(_.~"(
             message_text = None
 
             while tries < self.MAX_TRIES and not message_text:
-                response = self.claude_response(message, user_id)
+                response = await self.claude_response(message, user_id)
                 if response:
-                    message_text = response['completion']
+                    message_text = response.completion
                 else:
                     logger.error("Failed to get response from Claude")
                 tries += 1
