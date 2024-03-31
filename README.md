@@ -44,11 +44,3 @@ The bot responds to commands and messages in both private chats and supergroups.
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Credits
-
-- [Claude-2.1](https://docs.anthropic.com/claude/docs) is a language model developed by Anthropic Technology Ltd. 
-
-## Contact
-
-For any inquiries or questions regarding this bot, you can reach us at [nar3tsn3p@mozmail.com](mailto:your-email@example.com).
-
