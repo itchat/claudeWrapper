@@ -58,12 +58,14 @@ _.~"(_.~"(_.~"(_.~"(_.~"(
         self.user_manager.update_context(user_id, context)
 
         try:
-            res = await self.client.completions.create(
-                prompt=context,
-                model="claude-2.1",
-                max_tokens_to_sample=200000
+            res = await self.client.messages.create(
+                model="claude-3-opus-20240229",
+                max_tokens=4096,
+                messages=[
+                    {"role": "user", "content": context}
+                ]
             )
-            return res
+            return res.content[0].text
         except Exception as e:
             logger.error(f"Error in claude_response: {e}")
             return None
@@ -151,7 +153,7 @@ _.~"(_.~"(_.~"(_.~"(_.~"(
             while tries < self.MAX_TRIES and not message_text:
                 response = await self.claude_response(message, user_id)
                 if response:
-                    message_text = response.completion
+                    message_text = response
                 else:
                     logger.error("Failed to get response from Claude")
                 tries += 1
