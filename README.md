@@ -1,4 +1,4 @@
-# Claude-2 Multi-User Bot
+# Claude Multi-User Bot
 
 采用 SQL Lite 与 python-telegram-bot 设计的 Telegram Claude 问答机器人
 
@@ -36,7 +36,7 @@ The bot responds to commands and messages in both private chats and supergroups.
 
 - The bot will automatically clear a user's conversation history after 50 interactions to avoid excessive data accumulation.
 
-- If the Claude-2 API encounters an error, the bot will attempt to retry up to three times before notifying the user of an empty response.
+- If the Claude-3 API encounters an error, the bot will attempt to retry up to three times before notifying the user of an empty response.
 
 - The bot will only process text files (.txt or .md) of size between 5 bytes and 30MB.
 
